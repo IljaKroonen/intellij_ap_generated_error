@@ -1,0 +1,45 @@
+options:
+  thirdPartyDirectory: "third_party/jvm"
+  buildHeader:
+  - licenses(["notice"])
+  - load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_import")
+  resolvers:
+  - id: "mavencentral"
+    type: "default"
+    url: https://repo.maven.apache.org/maven2/
+  resolverType: coursier
+  transitivity: runtime_deps
+  versionConflictPolicy: highest
+
+dependencies:
+  io.kotlintest:
+    kotlintest:
+      modules: ["core", "assertions", "runner-junit4"]
+      version: "3.1.9"
+      lang: kotlin
+  com.google.dagger:
+    dagger:
+      version: "2.20"
+      lang: java
+    dagger-compiler:
+      version: "2.20"
+      lang: java
+    dagger-producers:
+      version: "2.20"
+      lang: java
+  javax.inject:
+    javax.inject:
+      version: "1"
+      lang: java
+
+replacements:
+  org.jetbrains.kotlin:
+    kotlin-stdlib:
+      lang: java
+      target: "@com_github_jetbrains_kotlin//:kotlin-stdlib"
+    kotlin-reflect:
+      lang: java
+      target: "@com_github_jetbrains_kotlin//:kotlin-reflect"
+    kotlin-script-runtime:
+      lang: java
+      target: "@com_github_jetbrains_kotlin//:kotlin-script-runtime"
